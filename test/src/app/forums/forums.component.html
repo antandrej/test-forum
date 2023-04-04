@@ -1,1 +1,17 @@
-<p>forums works!</p>
+<div class="forum" *ngFor="let forum of forums">
+    <div class="upper">
+        <p>{{forum.forumName}}</p>
+        <p class="save"></p>
+    </div>
+    <div class="main">
+        <p class="upcoming">Upcoming</p>
+        <p class="time">{{forum.time}}</p>
+        <p class="text">{{forum.text}}</p>
+        <p class="listeners">{{forum.listeners | number}} listeners</p>
+
+        <img [src]="forum.picture" class="picture">
+        <p class="modName">{{forum.moderatorName}}</p>
+        <p class="modDesc">{{forum.moderatorDesc}}</p>
+        <p class="title">{{forum.title}}</p>
+    </div>
+</div>

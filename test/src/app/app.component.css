@@ -3,16 +3,18 @@
     min-height: 100%;
     display: grid;
     grid-template-columns: 0.25fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: 0.2fr repeat(2, 0.33fr);
+    margin-bottom: 500px;
 }
 .container-item{
     width: auto;
+    height: fit-content;
 }
 .container-item:nth-child(1){
     grid-area: 1 / 1 / 2 / 2;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
 }
 .container-item:nth-child(2){
     grid-area: 1 / 2 / 2 / 3;
@@ -41,12 +43,15 @@
 }
 .container-item:nth-child(5){
     grid-area: 2 / 2 / 4 / 3;
+    margin: auto 10%;
 }
 .logo{
     font-size: 50px;
+    width: max-content;
 }
 .session{
     font-size: 25px;
+    margin-top: 70px;
 }
 .btn{
     color: black;
@@ -58,6 +63,7 @@
 .btn-green{
     color: white;
     background-color: #25bb85;
+    margin-top: 70px;
 }
 .btn-active{
     color: white;
@@ -78,4 +84,28 @@
     width: 20px;
     height: 20px;
     display: inline-block;
+}
+forums {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 3%;
+    grid-row-gap: 10%;
+}
+@media only screen and (max-width: 1680px){
+    forums {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+}
+@media only screen and (max-width: 1040px) {
+    forums {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+    }
+    #container{
+        grid-template-rows: 0.1fr 0.15fr 0.33fr;
+    }
 }
