@@ -97,7 +97,7 @@ forums {
     gap: 6vh 3%;
 }
 
-@media only screen and (max-width: 1660px){
+@media only screen and (max-width: 1700px){
     .container-item:nth-child(5){
         margin: auto 5% auto 5%;
     }
@@ -109,25 +109,25 @@ forums {
     }
 }
 */
-@media only screen and (max-width: 1306px) {
+@media only screen and (max-width: 1336px) {
     #container{
         grid-template-columns: 0.33fr 1fr;
     }
 } 
 
-@media only screen and (max-width: 1056px) {
+@media only screen and (max-width: 1076px) {
     #container{
         grid-template-columns: 0.4fr 1fr;
     }
 }
 
-@media only screen and (max-width: 919px) {
+@media only screen and (max-width: 939px) {
     #container{
         grid-template-columns: 0.5fr 1fr;
     }
 }
 
-@media only screen and (max-width: 790px) {
+@media only screen and (max-width: 815px) {
     #container{
         grid-template-columns: 0.6fr 1fr;
     }
