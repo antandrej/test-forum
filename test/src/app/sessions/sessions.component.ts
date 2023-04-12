@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import sessionsData from "../sessions.json";
 import { SessionsService } from '../sessions.service';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'sessions',
@@ -10,20 +7,24 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./sessions.component.css']
 })
 export class ForumsComponent implements OnInit{
+
   sessions: any[] = [];
 
-  constructor(private sessionsService: SessionsService, private route: Router) {}
+  constructor(private sessionsService: SessionsService) {
+  }
 
   ngOnInit(): void {
     this.getSessions();
   }
 
-  getSessions() {
-    this.sessionsService.getSessions().subscribe(data => {
+  async getSessions() {
+    try {
+      const data = await this.sessionsService.getSessions().toPromise();
       this.sessions = data as any[];
-    }, (error: any) => {
+      console.log('refreshing');
+    } catch (error) {
       console.log(error);
-    });
+    }
   }
 
 }

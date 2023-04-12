@@ -4,7 +4,7 @@
     </div>
     <div class="container-item">
       <p class="session">My Sessions</p>
-      <p class="btn btn-green">Create a session</p>
+      <p class="btn btn-green" (click)="openForm()">Create a session</p>
     </div>
     <div class="container-item">
       <p class="btn">Live</p>
@@ -19,4 +19,18 @@
     <div class="container-item">
       <sessions></sessions>
     </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span (click)="closeForm()" class="close">&times;</span>
+    <h2>Create a Session</h2>
+    <form>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <button (click)="addSession()" type="submit">Submit</button>
+    </form>
+  </div>
 </div>
