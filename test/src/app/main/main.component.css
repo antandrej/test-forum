@@ -90,7 +90,7 @@
     height: 20px;
     display: inline-block;
 }
-forums {
+sessions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
