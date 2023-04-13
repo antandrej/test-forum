@@ -15,7 +15,7 @@ export class MainComponent {
   openForm() {
     document.getElementById('modal')!.style.display = "block";
   }
-
+/*
   closeForm() {
     document.getElementById('modal')!.style.display = "none";
   }
@@ -26,11 +26,15 @@ export class MainComponent {
       name: (<HTMLInputElement>document.getElementById('name')).value,
     };
     try {
-      const data = await this.http.post('/api/sessions', newSession, { responseType: 'text' }).toPromise();
-      console.log(data);
-      this.clearFields();
-      this.comp.getSessions();
-      this.closeForm();
+      const data = await this.http.post('/api/sessions', newSession, { responseType: 'text' }).subscribe(
+        (res) => console.log(res), 
+        (err) => console.log(err),
+        () => {
+        this.clearFields();
+        this.comp.getSessions();
+        this.closeForm();
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -40,5 +44,5 @@ export class MainComponent {
     (document.getElementById('title') as HTMLInputElement).value = "";
     (document.getElementById('name') as HTMLInputElement).value = "";
   }
-
+*/
 }
