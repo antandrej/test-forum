@@ -12,4 +12,8 @@ export class SessionsService {
   getSessions() : Observable<any>{
     return this.http.get('/api/sessions');
   }
+
+  addSession(newSession: any) : Observable<any>{
+    return this.http.post('/api/sessions', newSession, { responseType: 'text' });
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionsService } from '../sessions.service';
+import { SessionsService } from '../services/sessions.service';
 import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'sessions',
@@ -11,18 +12,23 @@ export class ForumsComponent implements OnInit{
 
   sessions: any[] = [];
 
-  constructor(private sessionsService: SessionsService, private http: HttpClient) {
+  addSessionForm!: FormGroup;
+
+  constructor(private sessionsService: SessionsService, private http: HttpClient, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.getSessions();
+    this.addSessionForm = this.fb.group({
+      title: ['', Validators.required],
+      name: ['', Validators.required],
+    });
   }
 
   async getSessions() {
     try {
       const data = await this.sessionsService.getSessions().subscribe((data) => {
         this.sessions = data;
-        console.log(data);
       },
       (err) => (console.log(err)));
     } catch (error) {
@@ -30,17 +36,17 @@ export class ForumsComponent implements OnInit{
     }
   }
 
-  async addSession() {
+  async addSession(form: FormGroup) {
     const newSession = {
-      title: (<HTMLInputElement>document.getElementById('title')).value,
-      name: (<HTMLInputElement>document.getElementById('name')).value,
+      title: form.value.title,
+      name: form.value.name,
     };
     try {
-      const data = await this.http.post('/api/sessions', newSession, { responseType: 'text' }).subscribe(
+      const data = await this.sessionsService.addSession(newSession).subscribe(
         (res) => console.log(res), 
         (err) => console.log(err),
         () => {
-        this.clearFields();
+        this.clearFields(this.addSessionForm);
         this.ngOnInit();
         this.closeForm();
         }
@@ -50,9 +56,9 @@ export class ForumsComponent implements OnInit{
     }
   }
 
-  clearFields() {
-    (document.getElementById('title') as HTMLInputElement).value = "";
-    (document.getElementById('name') as HTMLInputElement).value = "";
+  clearFields(form: FormGroup) {
+    form.value.title = "";
+    form.value.name = "";
   }
 
   closeForm() {
