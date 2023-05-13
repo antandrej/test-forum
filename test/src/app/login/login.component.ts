@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,16 @@ export class LoginComponent  implements OnInit{
 
   public user: any;
 
-  constructor(private _usersService: UsersService, private auth: AuthService, private route: Router) {}
+  loginForm!: FormGroup;
+
+  constructor(private _usersService: UsersService, private auth: AuthService, private route: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.getUsers();
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 
   getUsers() {
@@ -30,15 +37,15 @@ export class LoginComponent  implements OnInit{
     });
   }
 
-  public login(){
-    this.user = this.users.find(user => user.username === this.username && user.password === this.password);
+  public login(form: FormGroup) {
+    this.user = this.users.find(user => user.username === form.value.username && user.password === form.value.password);
     if (this.user) {
       this.auth.login();
       this.route.navigate(['main']);
-      this._usersService.user = this.user
-    } else {
+      this._usersService.user = this.user;
+    }
+    else {
       alert("Invalid username or password!");
     }
   }
-
 }

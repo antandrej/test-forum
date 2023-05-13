@@ -1,12 +1,12 @@
 <h1>Login</h1>
 <div>
-    <form>
+    <form [formGroup]="loginForm">
         <label for="username">Username</label><br>
-        <input type="text" name="username" [(ngModel)]="username" required/><br><br>
+        <input type="text" name="username" formControlName="username"/><br><br>
 
         <label for="password">Password</label><br>
-        <input type="password" name="password" [(ngModel)]="password" required/><br><br><br>
+        <input type="password" name="password" formControlName="password"/><br><br><br>
 
-        <button (click)="login()">Login</button>
+        <button (click)="login(loginForm)">Login</button>
     </form>
 </div>

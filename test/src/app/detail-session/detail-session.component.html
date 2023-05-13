@@ -1,0 +1,11 @@
+<p>detail-session works!</p>
+<div class="session" *ngIf="session[0]; else noSession">
+    <p>{{ session[0].id }}</p>
+    <p>{{ session[0].title }}</p>
+    <p>{{ session[0].name }}</p>
+    <p>{{'1970-01-01T' + session[0].time | date:'shortTime'}}</p>
+</div>
+<ng-template #noSession><p>No session with this id !</p></ng-template>
+<div>
+    <button routerLink="/main">BACK</button>
+</div>

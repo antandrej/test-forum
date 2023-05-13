@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SessionsService } from '../services/sessions.service';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sessions',
@@ -14,8 +15,7 @@ export class ForumsComponent implements OnInit{
 
   addSessionForm!: FormGroup;
 
-  constructor(private sessionsService: SessionsService, private http: HttpClient, private fb: FormBuilder) {
-  }
+  constructor(private sessionsService: SessionsService, private http: HttpClient, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.getSessions();
@@ -54,6 +54,10 @@ export class ForumsComponent implements OnInit{
     } catch (error) {
       console.log(error);
     }
+  }
+
+  getSession(id: any){
+    this.router.navigate(['sessions/', id])
   }
 
   clearFields(form: FormGroup) {

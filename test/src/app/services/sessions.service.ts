@@ -13,6 +13,10 @@ export class SessionsService {
     return this.http.get('/api/sessions');
   }
 
+  getSession(id: any) : Observable<any>{
+    return this.http.get('/api/sessions/' + id, { responseType: 'json' });
+  }
+
   addSession(newSession: any) : Observable<any>{
     return this.http.post('/api/sessions', newSession, { responseType: 'text' });
   }

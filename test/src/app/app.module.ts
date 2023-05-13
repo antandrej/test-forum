@@ -9,13 +9,15 @@ import { RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DetailSessionComponent } from './detail-session/detail-session.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ForumsComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    DetailSessionComponent
   ],
   imports: [
     BrowserModule,

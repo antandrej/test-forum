@@ -5,6 +5,7 @@
         <form [formGroup]="addSessionForm">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" formControlName="title">
+
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" formControlName="name">
             <button (click)="addSession(addSessionForm)" type="submit">Submit</button>
@@ -14,12 +15,12 @@
 
 <div class="session" *ngFor="let session of sessions">
     <div class="upper">
-        <p>{{session.title}}</p>
+        <p (click)="getSession(session.id)">{{session.title}}</p>
         <p class="save"></p>
     </div>
     <div class="main">
         <p class="upcoming">Upcoming</p>
-        <p class="time">9:00AM</p>
+        <p class="time">{{'1970-01-01T' + session.time | date:'shortTime'}}</p>
         <p class="text">{{session.name}}</p>
         <p class="listeners">2000 listeners</p>
         <hr>
