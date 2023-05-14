@@ -22,6 +22,7 @@ export class ForumsComponent implements OnInit{
     this.addSessionForm = this.fb.group({
       title: ['', Validators.required],
       name: ['', Validators.required],
+      time: ['', Validators.required]
     });
   }
 
@@ -40,6 +41,7 @@ export class ForumsComponent implements OnInit{
     const newSession = {
       title: form.value.title,
       name: form.value.name,
+      time: form.value.time
     };
     try {
       const data = await this.sessionsService.addSession(newSession).subscribe(
@@ -63,6 +65,7 @@ export class ForumsComponent implements OnInit{
   clearFields(form: FormGroup) {
     form.value.title = "";
     form.value.name = "";
+    form.value.time = "";
   }
 
   closeForm() {

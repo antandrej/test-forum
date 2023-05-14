@@ -1,11 +1,44 @@
-<p>detail-session works!</p>
-<div class="session" *ngIf="session[0]; else noSession">
-    <p>{{ session[0].id }}</p>
-    <p>{{ session[0].title }}</p>
-    <p>{{ session[0].name }}</p>
-    <p>{{'1970-01-01T' + session[0].time | date:'shortTime'}}</p>
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span (click)="closeForm()" class="close">&times;</span>
+        <h2>Create a Session</h2>
+        <form [formGroup]="editSessionForm">
+            <label for="title">Session title : </label>
+            <input type="text" id="title" name="title" formControlName="title">
+
+            <label for="name">Session name : </label>
+            <input type="text" id="name" name="name" formControlName="name">
+
+            <label for="time">Scheduled time : </label>
+            <input type="time" id="time" name="time" formControlName="time">
+
+            <button (click)="updateSession(editSessionForm)" type="submit">Update</button>
+        </form>
+    </div>
 </div>
-<ng-template #noSession><p>No session with this id !</p></ng-template>
-<div>
-    <button routerLink="/main">BACK</button>
+
+<p class="btn btn-green" (click)="openForm(editSessionForm)">Edit session</p>
+<div id="wrapper">
+    <div id="left">
+
+    </div>
+    <div id="center">
+        <div class="session" *ngIf="session[0]; else noSession">
+            <p>Session title : {{ session[0].title }}</p>
+            <p>Session name : {{ session[0].name }}</p>
+            <p>Scheduled time : {{'1970-01-01T' + session[0].time | date:'shortTime'}}</p>
+            <img [src]="session[0].picture" class="picture">
+            <p class="modName">{{session[0].modname}}</p>
+            <button routerLink="/main">BACK</button>
+        </div>
+        <ng-template #noSession>
+            <div class="session">
+                <p>No session with this id !</p>
+                <button routerLink="/main">BACK</button>
+            </div>
+        </ng-template>
+    </div>
+    <div id="right">
+
+    </div>
 </div>

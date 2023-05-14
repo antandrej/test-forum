@@ -20,4 +20,8 @@ export class SessionsService {
   addSession(newSession: any) : Observable<any>{
     return this.http.post('/api/sessions', newSession, { responseType: 'text' });
   }
+
+  updateSession(id:any, updatedSession: any) : Observable<any>{
+    return this.http.put('/api/sessions/' + id, updatedSession, { responseType: 'text' });
+  }
 }
