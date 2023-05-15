@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './detail-session.component.html',
   styleUrls: ['./detail-session.component.css']
 })
-export class DetailSessionComponent implements OnInit{
+export class DetailSessionComponent implements OnInit {
 
   constructor(private sessionsService: SessionsService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
@@ -16,15 +16,19 @@ export class DetailSessionComponent implements OnInit{
   id: any;
 
   editSessionForm!: FormGroup;
+  initialFormValue: any;
 
   ngOnInit(): void {
     this.getSession();
+
     this.editSessionForm = this.fb.group({
       title: ['', Validators.required],
       name: ['', Validators.required],
       time: ['', Validators.required]
     });
+
   }
+
 
   async getSession() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -32,7 +36,7 @@ export class DetailSessionComponent implements OnInit{
       const data = await this.sessionsService.getSession(this.id).subscribe((data) => {
         this.session = data;
       },
-      (err) => (console.log(err)));
+        (err) => (console.log(err)));
     } catch (error) {
       console.log(error);
     }
@@ -45,9 +49,11 @@ export class DetailSessionComponent implements OnInit{
       name: this.session[0].name,
       time: this.session[0].time
     });
+    this.initialFormValue = this.editSessionForm.value;
   }
 
-  async updateSession(form: FormGroup){
+  async updateSession(form: FormGroup) {
+    const currentFormValue = form.value;
     const updatedSession = {
       id: this.id,
       title: form.value.title,
@@ -56,11 +62,17 @@ export class DetailSessionComponent implements OnInit{
     }
     try {
       const data = await this.sessionsService.updateSession(this.id, updatedSession).subscribe((data) => {
+        if (JSON.stringify(currentFormValue) === JSON.stringify(this.initialFormValue)) {
+          alert('Nothing changed!');
+        }
+        else {
+          alert('Session updated!');
+        }
         this.clearFields(this.editSessionForm);
         this.closeForm();
         this.ngOnInit();
       },
-      (err) => (console.log(err)));
+        (err) => (console.log(err)));
     } catch (error) {
       console.log(error);
     }
