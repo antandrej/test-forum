@@ -15,7 +15,13 @@ export class ForumsComponent implements OnInit{
 
   addSessionForm!: FormGroup;
 
-  constructor(private sessionsService: SessionsService, private http: HttpClient, private fb: FormBuilder, private router: Router) {}
+  first: boolean = true;
+  second: boolean = false;
+  third: boolean = false;
+
+  constructor(private sessionsService: SessionsService, private http: HttpClient, private fb: FormBuilder, private router: Router) {
+    //sessionsService.first.subscribe(bool => this.first = bool); ~~~~~ DATA SERVICE
+  }
 
   ngOnInit(): void {
     this.getSessions();
@@ -45,7 +51,7 @@ export class ForumsComponent implements OnInit{
     };
     try {
       const data = await this.sessionsService.addSession(newSession).subscribe(
-        (res) => console.log(res), 
+        (res) => console.log(res),
         (err) => console.log(err),
         () => {
         this.clearFields(this.addSessionForm);
@@ -69,7 +75,28 @@ export class ForumsComponent implements OnInit{
   }
 
   closeForm() {
+    this.second = false;
+    this.third = false;
+    this.first = true;
     document.getElementById('modal')!.style.display = "none";
+  }
+
+  switchToFirst(){
+    this.first = true;
+    this.second = false;
+    this.third = false;
+  }
+
+  switchToSecond(){
+    this.first = false;
+    this.second = true;
+    this.third = false;
+  }
+
+  switchToThird(){
+    this.first = false;
+    this.second = false;
+    this.third = true;
   }
 
 }

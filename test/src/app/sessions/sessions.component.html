@@ -3,16 +3,33 @@
         <span (click)="closeForm()" class="close">&times;</span>
         <h2>Create a Session</h2>
         <form [formGroup]="addSessionForm">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" formControlName="title">
+            <ng-template [ngIf]="first">
 
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" formControlName="name">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" formControlName="title">
+                <button (click)="switchToSecond()" type="submit">Next</button>
 
-            <label for="time">Time:</label>
-            <input type="time" id="time" name="time" formControlName="time">
+            </ng-template>
+            <ng-template [ngIf]="second">
 
-            <button (click)="addSession(addSessionForm)" type="submit">Submit</button>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" formControlName="name">
+                <div class="btn-holder">
+                    <button (click)="switchToFirst()" type="submit">Back</button>
+                    <button (click)="switchToThird()" type="submit">Next</button>
+                </div>
+
+            </ng-template>
+
+            <ng-template [ngIf]="third">
+
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" formControlName="time">
+                <div class="btn-holder">
+                    <button (click)="switchToSecond()" type="submit">Back</button>
+                    <button (click)="addSession(addSessionForm)" type="submit">Submit</button>
+                </div>
+            </ng-template>
         </form>
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ForumsComponent } from '../sessions/sessions.component'
+import { SessionsService } from '../services/sessions.service';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +11,13 @@ import { ForumsComponent } from '../sessions/sessions.component'
 })
 export class MainComponent {
 
-  constructor(private http: HttpClient, private comp: ForumsComponent) { }
+  first: boolean = true;
+
+  constructor(private service: SessionsService) {
+  }
 
   openForm() {
+    //this.service.backToFirst(true); ~~~ DATA SERVICE
     document.getElementById('modal')!.style.display = "block";
   }
 }
