@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './sessions.component.html',
   styleUrls: ['./sessions.component.css']
 })
-export class ForumsComponent implements OnInit{
+export class ForumsComponent implements OnInit {
 
   sessions: any[] = [];
 
@@ -37,7 +37,7 @@ export class ForumsComponent implements OnInit{
       const data = await this.sessionsService.getSessions().subscribe((data) => {
         this.sessions = data;
       },
-      (err) => (console.log(err)));
+        (err) => (console.log(err)));
     } catch (error) {
       console.log(error);
     }
@@ -54,9 +54,9 @@ export class ForumsComponent implements OnInit{
         (res) => console.log(res),
         (err) => console.log(err),
         () => {
-        this.clearFields(this.addSessionForm);
-        this.ngOnInit();
-        this.closeForm();
+          this.clearFields(this.addSessionForm);
+          this.ngOnInit();
+          this.closeForm();
         }
       );
     } catch (error) {
@@ -64,7 +64,7 @@ export class ForumsComponent implements OnInit{
     }
   }
 
-  getSession(id: any){
+  getSession(id: any) {
     this.router.navigate(['sessions/', id])
   }
 
@@ -81,19 +81,19 @@ export class ForumsComponent implements OnInit{
     document.getElementById('modal')!.style.display = "none";
   }
 
-  switchToFirst(){
+  switchToFirst() {
     this.first = true;
     this.second = false;
     this.third = false;
   }
 
-  switchToSecond(){
+  switchToSecond() {
     this.first = false;
     this.second = true;
     this.third = false;
   }
 
-  switchToThird(){
+  switchToThird() {
     this.first = false;
     this.second = false;
     this.third = true;
