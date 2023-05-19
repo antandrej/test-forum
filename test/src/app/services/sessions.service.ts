@@ -34,4 +34,8 @@ export class SessionsService {
     return this.http.put('/api/sessions/' + id, updatedSession, { responseType: 'text' });
   }
 
+  uploadFile(id: any,formData:FormData) : Observable<any>{
+    return this.http.post('api/uploads/' + id, formData);
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SessionsService } from '../services/sessions.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-detail-session',
@@ -10,7 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class DetailSessionComponent implements OnInit {
 
-  constructor(private sessionsService: SessionsService, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private http: HttpClient, private sessionsService: SessionsService, private route: ActivatedRoute, private fb: FormBuilder)
+   { 
+    this.uploadFileForm = this.fb.group({
+      name: [''],
+      avatar: [null],
+    });
+   }
 
   session: any[] = [];
   id: any;
@@ -28,7 +35,6 @@ export class DetailSessionComponent implements OnInit {
     });
 
   }
-
 
   async getSession() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -62,12 +68,14 @@ export class DetailSessionComponent implements OnInit {
     }
     try {
       const data = await this.sessionsService.updateSession(this.id, updatedSession).subscribe((data) => {
+        /*
         if (JSON.stringify(currentFormValue) === JSON.stringify(this.initialFormValue)) {
           alert('Nothing changed!');
         }
         else {
           alert('Session updated!');
         }
+        */
         this.clearFields(this.editSessionForm);
         this.closeForm();
         this.ngOnInit();
@@ -86,6 +94,29 @@ export class DetailSessionComponent implements OnInit {
 
   closeForm() {
     document.getElementById('modal')!.style.display = "none";
+  }
+
+  //
+
+  uploadFileForm: FormGroup;
+
+  uploadFile(event: any) {
+    const file = (event.target as HTMLInputElement).files![0];
+    this.uploadFileForm.patchValue({
+      avatar: file
+    });
+    this.uploadFileForm.get('avatar')!.updateValueAndValidity()
+  }
+  submitForm() {
+    var formData: any = new FormData();
+
+    formData.append("avatar", this.uploadFileForm.get('avatar')!.value);
+
+    this.sessionsService.uploadFile(this.id,formData).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    )
+    this.closeForm();
   }
 
 }
