@@ -50,6 +50,9 @@
         </ng-template>
     </div>
     <div id="right">
-
+        <div *ngFor="let file of files">
+            <p><a [href]="downloadFile(file)" download>{{ file }}</a></p>
+          </div>
+                                     
     </div>
 </div>

@@ -20,6 +20,7 @@ export class DetailSessionComponent implements OnInit {
    }
 
   session: any[] = [];
+  files: any[] = [];
   id: any;
 
   editSessionForm!: FormGroup;
@@ -27,6 +28,7 @@ export class DetailSessionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSession();
+    this.getFiles();
 
     this.editSessionForm = this.fb.group({
       title: ['', Validators.required],
@@ -100,6 +102,18 @@ export class DetailSessionComponent implements OnInit {
 
   uploadFileForm: FormGroup;
 
+  async getFiles() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    try {
+      await this.sessionsService.getFiles(this.id).subscribe((data) => {
+        this.files = data.data;
+      },
+        (err) => (console.log(err)));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   uploadFile(event: any) {
     const file = (event.target as HTMLInputElement).files![0];
     this.uploadFileForm.patchValue({
@@ -107,6 +121,7 @@ export class DetailSessionComponent implements OnInit {
     });
     this.uploadFileForm.get('avatar')!.updateValueAndValidity()
   }
+
   submitForm() {
     var formData: any = new FormData();
 
@@ -116,7 +131,24 @@ export class DetailSessionComponent implements OnInit {
       (response) => console.log(response),
       (error) => console.log(error)
     )
+    this.getFiles();
     this.closeForm();
+  }
+
+/*
+  async downloadFile(fileName:string) {
+    try {
+      await this.sessionsService.downloadFile(this.id, fileName).subscribe((data) => {
+        console.log('downloading . . .');
+      },
+        (err) => (console.log(err)));
+    } catch (error) {
+      console.log(error);
+    }
+  }*/
+
+  downloadFile(fileName: string): string {
+    return `/api/uploads/${this.id}/${fileName}`;
   }
 
 }

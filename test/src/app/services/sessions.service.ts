@@ -38,4 +38,12 @@ export class SessionsService {
     return this.http.post('api/uploads/' + id, formData);
   }
 
+  getFiles(id: any) : Observable<any>{
+    return this.http.get('api/uploads/' + id, { responseType: 'json' });
+  }
+
+  downloadFile(id: any, fileName:any) : Observable<any>{
+    return this.http.get(`/api/uploads/${id}/${fileName}`);
+  }
+
 }
